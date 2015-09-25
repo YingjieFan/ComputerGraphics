@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -16,33 +18,35 @@ import javax.swing.JPanel;
 import org.w3c.dom.css.Rect;
 
 class UIPanel extends JPanel implements MouseMotionListener,MouseListener{
-	private final int pxPerUnit;
-	private final int sectionMainWidth;
-	private final int sectionMainHeight;
-	private final int sectionMainLeftMargin;
-	private final int sectionMainTopMargin;
+	private int panelWidth;
+	private int panelHeight;
+	private int pxPerUnit;
+	private int sectionMainWidth;
+	private int sectionMainHeight;
+	private int sectionMainLeftMargin;
+	private int sectionMainTopMargin;
 	private boolean shouldPause=false;
-	private final int middleGap;
-	private final int sectionNextShapeX;
-	private final int sectionNextShapeY;
-	private final int sectionNextShapeWidth;
-	private final int sectionNextShapeHeight;
+	private int middleGap;
+	private int sectionNextShapeX;
+	private int sectionNextShapeY;
+	private int sectionNextShapeWidth;
+	private int sectionNextShapeHeight;
 	private String textDisplay;
 	private int level,lines,score;
-	private final int textDisplayX;
-	private final int textDisplayY;
-	private final String quitText="QUIT";
-	private final int quitRectWidth;
-	private final int quitRectHeight;
-	private final int quitRectX;
-	private final int quitRectY;
-	private final int pauseRectWidth;
-	private final int pauseRectHeight;
-	private final int pauseRectX;
-	private final int pauseRectY;
-	private final String pauseText = "PAUSE";
-	private final int pauseTextX;
-	private final int pauseTextY;
+	private int textDisplayX;
+	private int textDisplayY;
+	private String quitText="QUIT";
+	private int quitRectWidth;
+	private int quitRectHeight;
+	private int quitRectX;
+	private int quitRectY;
+	private int pauseRectWidth;
+	private int pauseRectHeight;
+	private int pauseRectX;
+	private int pauseRectY;
+	private String pauseText = "PAUSE";
+	private int pauseTextX;
+	private int pauseTextY;
 	Graphics2D g2d;
 
 	/**
@@ -51,7 +55,13 @@ class UIPanel extends JPanel implements MouseMotionListener,MouseListener{
 	public UIPanel() {
 		super();
 		// TODO Auto-generated constructor stub
-		pxPerUnit=60;
+		panelHeight=this.getHeight();
+		panelWidth = this.getWidth();
+		if(panelHeight>panelWidth){
+			pxPerUnit=panelWidth/12;
+		}else{
+			pxPerUnit=panelHeight/12;
+		}
 		sectionMainWidth = pxPerUnit*5;
 		sectionMainHeight = pxPerUnit*10;
 		sectionMainLeftMargin=200;
@@ -88,16 +98,27 @@ class UIPanel extends JPanel implements MouseMotionListener,MouseListener{
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
+		System.out.println(this.getHeight());
+		panelHeight=this.getHeight();
+		panelWidth = this.getWidth();
+		if(panelHeight>panelWidth){
+			pxPerUnit=panelWidth/12;
+		}else{
+			pxPerUnit=panelHeight/12;
+		}
 		g2d = (Graphics2D)g;
 		drawSectionMainArea(g2d);
-		drawSectionNextShape(g2d);
-		drawSectionText(g2d);
-		drawQuitButton(g2d);
+		//drawSectionNextShape(g2d);
+		//drawSectionText(g2d);
+		//drawQuitButton(g2d);
+		
 		
 	}
 	
 	//The method for drawing the main game play section on the left including the Pause 
 	private void drawSectionMainArea(Graphics2D g2d){
+		sectionMainLeftMargin=pxPerUnit;
+		sectionMainTopMargin=pxPerUnit;
 		Rectangle sectionMainRect = new Rectangle(sectionMainLeftMargin, sectionMainTopMargin, sectionMainWidth, sectionMainHeight);
 		g2d.draw(sectionMainRect);
 		if(shouldPause == true){
@@ -202,6 +223,8 @@ class UIPanel extends JPanel implements MouseMotionListener,MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 
 

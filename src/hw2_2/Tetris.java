@@ -2,6 +2,7 @@ package hw2_2;
 
 
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
@@ -35,6 +36,7 @@ public class Tetris {
     	//Add the panel component to JFrame
     	frame.add(panel);
     	frame.setVisible(true);
+ 
 	}
 }
 
