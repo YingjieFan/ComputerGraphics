@@ -2,22 +2,31 @@ package hw2_2;
 
 
 
-import java.awt.Graphics;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Tetris {
+public class Tetris{
 	private static final String TAG = "Tetris";
 	private JFrame frame;
 	private JPanel panel;
+	private static int currentShape;
+	//private static Timer timer;
+	static NextShapeGenerator nextShapeGenerator;
 	/**
 	 * 
 	 */
 	 Tetris() {
 		super();
 		setUpJFrame();
-		System.out.println(TAG);
+		currentShape = -1;
+		nextShapeGenerator = new NextShapeGenerator();
+		currentShape = nextShapeGenerator.randomShape();
+		//timer = new Timer();
+		
+		//System.out.println(TAG);
 
 		// TODO Auto-generated constructor stub
 	}
@@ -25,6 +34,17 @@ public class Tetris {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Tetris tetris = new Tetris();
+		/*TimerTask timerTask = new TimerTask(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
+		
+		timer.schedule(timerTask, 0, 1000);*/
 	}
 	private void setUpJFrame(){
 		frame = new JFrame("Tetris Game");
@@ -36,6 +56,8 @@ public class Tetris {
     	frame.add(panel);
     	frame.setVisible(true);
 	}
+	
+	
 }
 
 
